@@ -1,4 +1,3 @@
-5
 # Calcular o imprimir el precio a pagar por un artículo
 # El precio a pagar incluye el IVA. El programa deberá funcionar x veces según el deseo del usuario.
 
