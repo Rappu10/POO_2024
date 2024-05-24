@@ -1,0 +1,85 @@
+{
+  "_type": "Project",
+  "name": "Punto_de_venta",
+  "ownedElements": [
+    {
+      "_type": "UMLClassDiagram",
+      "name": "Diagrama de Clases",
+      "ownedElements": [
+        {
+          "_type": "UMLClass",
+          "name": "PuntoDeVenta",
+          "attributes": [
+            { "_type": "UMLAttribute", "name": "cantidad", "type": "float" },
+            { "_type": "UMLAttribute", "name": "precio", "type": "float" },
+            { "_type": "UMLAttribute", "name": "total_compra", "type": "float" },
+            { "_type": "UMLAttribute", "name": "pago", "type": "float" },
+            { "_type": "UMLAttribute", "name": "cambio", "type": "float" },
+            { "_type": "UMLAttribute", "name": "menu", "type": "float" },
+            { "_type": "UMLAttribute", "name": "i", "type": "float" },
+            { "_type": "UMLAttribute", "name": "e", "type": "float" },
+            { "_type": "UMLAttribute", "name": "codigo_producto", "type": "float" },
+            { "_type": "UMLAttribute", "name": "subtotal", "type": "float" },
+            { "_type": "UMLAttribute", "name": "total_neto", "type": "float" },
+            { "_type": "UMLAttribute", "name": "iva", "type": "float" },
+            { "_type": "UMLAttribute", "name": "contador", "type": "float" },
+            { "_type": "UMLAttribute", "name": "descuento", "type": "float" },
+            { "_type": "UMLAttribute", "name": "producto", "type": "String" },
+            { "_type": "UMLAttribute", "name": "continuar", "type": "String" }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "name": "Producto",
+          "attributes": [
+            { "_type": "UMLAttribute", "name": "codigo", "type": "int" },
+            { "_type": "UMLAttribute", "name": "nombre", "type": "String" },
+            { "_type": "UMLAttribute", "name": "precio", "type": "float" }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "name": "Venta",
+          "attributes": [
+            { "_type": "UMLAttribute", "name": "productos", "type": "list<Producto>" },
+            { "_type": "UMLAttribute", "name": "total_compra", "type": "float" },
+            { "_type": "UMLAttribute", "name": "total_neto", "type": "float" },
+            { "_type": "UMLAttribute", "name": "iva", "type": "float" }
+          ],
+          "operations": [
+            { "_type": "UMLOperation", "name": "realizarVenta", "returnType": "void" },
+            { "_type": "UMLOperation", "name": "calcularTotalCompra", "returnType": "float" },
+            { "_type": "UMLOperation", "name": "calcularTotalNeto", "returnType": "float" }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "name": "InterfazUsuario",
+          "operations": [
+            { "_type": "UMLOperation", "name": "mostrarMenu", "returnType": "void" },
+            { "_type": "UMLOperation", "name": "mostrarProductos", "returnType": "void" },
+            { "_type": "UMLOperation", "name": "mostrarAyuda", "returnType": "void" }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "name": "Main",
+          "operations": [
+            { "_type": "UMLOperation", "name": "main", "returnType": "void" }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "UMLObjectDiagram",
+      "name": "Diagrama de Objetos",
+      "ownedElements": [
+        {
+          "_type": "UMLObject",
+          "name": "puntoDeVenta1",
+          "classifier": "PuntoDeVenta"
+        }
+      ]
+    }
+  ]
+}
