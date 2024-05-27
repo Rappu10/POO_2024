@@ -2,5 +2,5 @@
 while True:
     num = int(input("Introduce un número: "))
     if num == 111:
-        break
+       
     
