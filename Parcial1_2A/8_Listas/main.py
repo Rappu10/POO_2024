@@ -12,6 +12,7 @@ peliculas = []
 peliculas_info = {}
 
 def mostrar_menu():
+    print("  ..::/Dagopolis\::..")
     print("Menú de opciones:")
     print("1. Agregar película")
     print("2. Remover película")
