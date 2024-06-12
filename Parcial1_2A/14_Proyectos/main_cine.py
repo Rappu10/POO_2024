@@ -6,7 +6,7 @@
 #1.- Utilizar funciones y mandar llamar desde otro archivo 
 #-2.--Utilizar listas para almacenar los nombres de peliculas
 
-from functions import agregar_pelicula, remover_pelicula, consultar_peliculas, actualizar_pelicula, buscar_pelicula
+from cine import agregar_pelicula, remover_pelicula, consultar_peliculas, actualizar_pelicula, buscar_pelicula
 
 peliculas = []
 peliculas_info = {}
@@ -19,7 +19,15 @@ def mostrar_menu():
     print("3. Consultar películas")
     print("4. Actualizar película")
     print("5. Buscar película")
-    print("6. Salir")
+    print("6. Vaciar lista de películas")
+    print("7. Salir")
+
+def vaciar():
+    global peliculas
+    global peliculas_info
+    peliculas = []
+    peliculas_info = {}
+    print("Lista de películas vaciada correctamente.")
 
 def main():
     while True:
@@ -37,6 +45,8 @@ def main():
         elif opcion == "5":
             buscar_pelicula(peliculas, peliculas_info)
         elif opcion == "6":
+            vaciar()
+        elif opcion == "7":
             print("Saliendo del programa...")
             break
         else:

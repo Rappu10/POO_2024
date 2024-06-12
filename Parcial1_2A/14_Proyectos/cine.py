@@ -3,15 +3,11 @@ def agregar_pelicula(peliculas, peliculas_info):
     if nombre in peliculas:
         print("La película ya existe.")
     else:
-        director = input("Ingrese el nombre del director: ")
         año = input("Ingrese el año de estreno: ")
-        genero = input("Ingrese el género: ")
         
         peliculas.append(nombre)
         peliculas_info[nombre] = {
-            "director": director,
             "año": año,
-            "género": genero
         }
         print(f"Película '{nombre}' agregada con éxito.")
 
@@ -62,3 +58,9 @@ def buscar_pelicula(peliculas, peliculas_info):
         print(f"  Género: {info['género']}")
     else:
         print("La película no existe.")
+        
+def vaciar(peliculas, peliculas_info):
+    peliculas.clear()
+    peliculas_info.clear()
+    print("Lista de películas vaciada correctamente.")
+    
