@@ -1,0 +1,4 @@
+<IfModule mod_php7.c>
+    AddType application/x-httpd-php .php
+    php_flag engine on
+</IfModule>
