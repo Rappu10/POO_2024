@@ -5,7 +5,7 @@ try:
     conexion=mysql.connector.connect(
         host='localhost',
         user='root',
-        password='ramona'  
+        password='1205'  
     )
 
     #Crear un objeo nuevo de tipo cursor para ejecutar SQL
