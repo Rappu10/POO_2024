@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
+from login import *
+
 
 TARIFA_BASE = 50
 acumulador_Ingresos = 0
@@ -11,11 +13,10 @@ precio_accesorio_5 = 150
 MAX_MASCOTAS = 10
 contador_mascotas = 0
 acumulador_nombres = ""
-
 class VeterinariaApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Sistema de Gestión de la Veterinaria Las Ranas")
+        self.root.title(" /.::Sistema de Gestión de la Veterinaria::.\ ")
         
         self.nombre_var = tk.StringVar()
         self.tipo_var = tk.StringVar()
@@ -64,6 +65,13 @@ class VeterinariaApp:
             tk.Radiobutton(self.procedimiento_frame, text="Parto", variable=self.opc_var, value=4, font=("Arial", 12)).grid(row=4, column=0, sticky="w")
             tk.Radiobutton(self.procedimiento_frame, text="Tratamiento de huesos rotos", variable=self.opc_var, value=5, font=("Arial", 12)).grid(row=5, column=0, sticky="w")
             tk.Radiobutton(self.procedimiento_frame, text="Prótesis", variable=self.opc_var, value=6, font=("Arial", 12)).grid(row=6, column=0, sticky="w")
+        
+        elif self.procedimiento_var.get() == 2:
+            tk.Label(self.procedimiento_frame, text="Vacunas Disponibles", font=("Arial", 12, "bold"), fg="red").grid(row=0, column=0, columnspan=2)
+            tk.Radiobutton(self.procedimiento_frame, text="Rabia", variable=self.opc_var, value=4, font=("Arial", 12)).grid(row=4, column=0, sticky="w")
+            tk.Radiobutton(self.procedimiento_frame, text="Parvovirus", variable=self.opc_var, value=5, font=("Arial", 12)).grid(row=5, column=0, sticky="w")
+            tk.Radiobutton(self.procedimiento_frame, text="Pulgas", variable=self.opc_var, value=6, font=("Arial", 12)).grid(row=6, column=0, sticky="w")
+        
         elif self.procedimiento_var.get() == 4:
             tk.Label(self.procedimiento_frame, text="Accesorios disponibles:", font=("Arial", 12, "bold"), fg="red").grid(row=0, column=0, columnspan=2)
             tk.Radiobutton(self.procedimiento_frame, text="Correa", variable=self.opc2_var, value=1, font=("Arial", 12)).grid(row=1, column=0, sticky="w")
@@ -114,7 +122,7 @@ class VeterinariaApp:
         acumulador_Ingresos += costo_procedimiento
         acumulador_nombres += nombre_mascota + " "
         
-        messagebox.showinfo("Registro Exitoso", f"El costo final del procedimiento para {nombre_mascota} es de ${costo_procedimiento}")
+        messagebox.showinfo("Registro Exitoso", f"El costo final del procedimiento para {nombre_mascota} es de $ {costo_procedimiento}")
     
     def mostrar_resultados(self):
         messagebox.showinfo("Resultados",

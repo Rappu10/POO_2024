@@ -1,0 +1,312 @@
+{
+    "_type": "Project",
+    "name": "Veterinaria",
+    "ownedElements": [
+      {
+        "_type": "UMLModel",
+        "name": "Model",
+        "ownedElements": [
+          {
+            "_type": "UMLClassDiagram",
+            "name": "Diagrama de Clases",
+            "ownedElements": [
+              {
+                "_type": "UMLClass",
+                "name": "Mascota",
+                "attributes": [
+                  {
+                    "_type": "UMLAttribute",
+                    "name": "nombre",
+                    "type": "str",
+                    "visibility": "private"
+                  },
+                  {
+                    "_type": "UMLAttribute",
+                    "name": "tipo",
+                    "type": "str",
+                    "visibility": "private"
+                  },
+                  {
+                    "_type": "UMLAttribute",
+                    "name": "peso",
+                    "type": "float",
+                    "visibility": "private"
+                  }
+                ],
+                "operations": [
+                  {
+                    "_type": "UMLOperation",
+                    "name": "__init__",
+                    "parameters": [
+                      {
+                        "_type": "UMLParameter",
+                        "name": "nombre",
+                        "type": "str"
+                      },
+                      {
+                        "_type": "UMLParameter",
+                        "name": "tipo",
+                        "type": "str"
+                      },
+                      {
+                        "_type": "UMLParameter",
+                        "name": "peso",
+                        "type": "float"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "_type": "UMLClass",
+                "name": "Procedimiento",
+                "attributes": [
+                  {
+                    "_type": "UMLAttribute",
+                    "name": "TARIFA_BASE",
+                    "type": "int",
+                    "visibility": "public"
+                  },
+                  {
+                    "_type": "UMLAttribute",
+                    "name": "precios_accesorios",
+                    "type": "dict",
+                    "visibility": "public"
+                  }
+                ],
+                "operations": [
+                  {
+                    "_type": "UMLOperation",
+                    "name": "obtener_costo",
+                    "parameters": [
+                      {
+                        "_type": "UMLParameter",
+                        "name": "procedimiento",
+                        "type": "int"
+                      },
+                      {
+                        "_type": "UMLParameter",
+                        "name": "opcion",
+                        "type": "int",
+                        "default": "None"
+                      },
+                      {
+                        "_type": "UMLParameter",
+                        "name": "cantidad_accesorios",
+                        "type": "int",
+                        "default": "1"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "_type": "UMLClass",
+                "name": "Veterinaria",
+                "attributes": [
+                  {
+                    "_type": "UMLAttribute",
+                    "name": "acumulador_ingresos",
+                    "type": "float",
+                    "visibility": "private"
+                  },
+                  {
+                    "_type": "UMLAttribute",
+                    "name": "contador_mascotas",
+                    "type": "int",
+                    "visibility": "private"
+                  },
+                  {
+                    "_type": "UMLAttribute",
+                    "name": "acumulador_nombres",
+                    "type": "str",
+                    "visibility": "private"
+                  }
+                ],
+                "operations": [
+                  {
+                    "_type": "UMLOperation",
+                    "name": "__init__"
+                  },
+                  {
+                    "_type": "UMLOperation",
+                    "name": "registrar_mascota",
+                    "parameters": [
+                      {
+                        "_type": "UMLParameter",
+                        "name": "mascota",
+                        "type": "Mascota"
+                      },
+                      {
+                        "_type": "UMLParameter",
+                        "name": "procedimiento",
+                        "type": "int"
+                      },
+                      {
+                        "_type": "UMLParameter",
+                        "name": "opcion",
+                        "type": "int",
+                        "default": "None"
+                      },
+                      {
+                        "_type": "UMLParameter",
+                        "name": "cantidad_accesorios",
+                        "type": "int",
+                        "default": "1"
+                      }
+                    ]
+                  },
+                  {
+                    "_type": "UMLOperation",
+                    "name": "mostrar_resultados"
+                  }
+                ]
+              },
+              {
+                "_type": "UMLDependency",
+                "source": {
+                  "$ref": "Veterinaria"
+                },
+                "target": {
+                  "$ref": "Procedimiento"
+                },
+                "name": "usa"
+              },
+              {
+                "_type": "UMLDependency",
+                "source": {
+                  "$ref": "Veterinaria"
+                },
+                "target": {
+                  "$ref": "Mascota"
+                },
+                "name": "tiene"
+              }
+            ]
+          },
+          {
+            "_type": "UMLObjectDiagram",
+            "name": "Diagrama de Objetos",
+            "ownedElements": [
+              {
+                "_type": "UMLObject",
+                "name": "veterinaria",
+                "classifier": {
+                  "$ref": "Veterinaria"
+                },
+                "slots": [
+                  {
+                    "_type": "UMLSlot",
+                    "name": "acumulador_ingresos",
+                    "value": "0"
+                  },
+                  {
+                    "_type": "UMLSlot",
+                    "name": "contador_mascotas",
+                    "value": "0"
+                  },
+                  {
+                    "_type": "UMLSlot",
+                    "name": "acumulador_nombres",
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "_type": "UMLObject",
+                "name": "mascota1",
+                "classifier": {
+                  "$ref": "Mascota"
+                },
+                "slots": [
+                  {
+                    "_type": "UMLSlot",
+                    "name": "nombre",
+                    "value": "Fido"
+                  },
+                  {
+                    "_type": "UMLSlot",
+                    "name": "tipo",
+                    "value": "Perro"
+                  },
+                  {
+                    "_type": "UMLSlot",
+                    "name": "peso",
+                    "value": "20.0"
+                  }
+                ]
+              },
+              {
+                "_type": "UMLObject",
+                "name": "mascota2",
+                "classifier": {
+                  "$ref": "Mascota"
+                },
+                "slots": [
+                  {
+                    "_type": "UMLSlot",
+                    "name": "nombre",
+                    "value": "Luna"
+                  },
+                  {
+                    "_type": "UMLSlot",
+                    "name": "tipo",
+                    "value": "Gato"
+                  },
+                  {
+                    "_type": "UMLSlot",
+                    "name": "peso",
+                    "value": "5.0"
+                  }
+                ]
+              },
+              {
+                "_type": "UMLObject",
+                "name": "mascota3",
+                "classifier": {
+                  "$ref": "Mascota"
+                },
+                "slots": [
+                  {
+                    "_type": "UMLSlot",
+                    "name": "nombre",
+                    "value": "Rex"
+                  },
+                  {
+                    "_type": "UMLSlot",
+                    "name": "tipo",
+                    "value": "Perro"
+                  },
+                  {
+                    "_type": "UMLSlot",
+                    "name": "peso",
+                    "value": "35.0"
+                  }
+                ]
+              },
+              {
+                "_type": "UMLObject",
+                "name": "procedimiento",
+                "classifier": {
+                  "$ref": "Procedimiento"
+                },
+                "slots": [
+                  {
+                    "_type": "UMLSlot",
+                    "name": "TARIFA_BASE",
+                    "value": "50"
+                  },
+                  {
+                    "_type": "UMLSlot",
+                    "name": "precios_accesorios",
+                    "value": "{1: 95, 2: 150, 3: 55, 4: 230, 5: 150}"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  

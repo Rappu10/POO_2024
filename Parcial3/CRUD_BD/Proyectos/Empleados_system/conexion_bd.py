@@ -1,8 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
-from conexion_bd import ConexionBD
 
-class EmpleadoDB:
+class ConexionBD:
     def __init__(self, host, database, user, password):
         self.host = host
         self.database = database
@@ -93,7 +92,3 @@ class EmpleadoDB:
                 break
             else:
                 print("Opción no válida. Inténtalo de nuevo.")
-
-if __name__ == "__main__":
-    db = ConexionBD(host='localhost', database='empleados', user='root', password='1205')
-    db.menu()

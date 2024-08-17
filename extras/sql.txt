@@ -1,0 +1,80 @@
+ 
+francisco@francisco:~$ sudo -i
+[sudo] contraseña para francisco:
+root@francisco:~# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 6
+Server version: 10.11.6-MariaDB-0+deb12u1 Debian 12
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> Show databeses;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'databeses' at line 1
+MariaDB [(none)]> CREATE DATABASE IF NOT EXISTS Clientes;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [(none)]>
+MariaDB [(none)]> USE Clientes;
+Database changed
+MariaDB [Clientes]>
+MariaDB [Clientes]> CREATE TABLE IF NOT EXISTS Clientes (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     nombre VARCHAR(255) NOT NULL,
+    ->     apellido VARCHAR(255) NOT NULL,
+    ->     telefono VARCHAR(20),
+    ->     email VARCHAR(255)
+    -> );
+Query OK, 0 rows affected (0.013 sec)
+
+MariaDB [Clientes]> show tables;
++--------------------+
+| Tables_in_Clientes |
++--------------------+
+| Clientes           |
++--------------------+
+1 row in set (0.001 sec)
+
+MariaDB [Clientes]> describe Clientes;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| id       | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nombre   | varchar(255) | NO   |     | NULL    |                |
+| apellido | varchar(255) | NO   |     | NULL    |                |
+| telefono | varchar(20)  | YES  |     | NULL    |                |
+| email    | varchar(255) | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+5 rows in set (0.030 sec)
+
+MariaDB [Clientes]> select * from clientes
+    -> ;
+ERROR 1146 (42S02): Table 'Clientes.clientes' doesn't exist
+MariaDB [Clientes]> select * from clientes;
+ERROR 1146 (42S02): Table 'Clientes.clientes' doesn't exist
+MariaDB [Clientes]> select * from Clientes;
++----+------------+----------------+------------+----------------------------+
+| id | nombre     | apellido       | telefono   | email                      |
++----+------------+----------------+------------+----------------------------+
+|  1 | Francisco  | Cervantes Diaz | 5624996522 | panchocervantes6@gmail.com |
++----+------------+----------------+------------+----------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [Clientes]> select * from Clientes;
+Empty set (0.001 sec)
+
+MariaDB [Clientes]> select * from Clientes;
++----+------------+------------------+------------+-------------------------+
+| id | nombre     | apellido         | telefono   | email                   |
++----+------------+------------------+------------+-------------------------+
+|  2 | Dagoberto  | Fiscal Gurrola   | 6181234567 | dagfiscal@gmail.com     |
+|  3 | Francisco  | Cervates Diaz    | 6183538409 | poderosorappu@gmail.com |
+|  4 | Antonio    | Delgado Rodrigez | 6187654321 | antoniodel1ro@gmail.com |
++----+------------+------------------+------------+-------------------------+
+3 rows in set (0.001 sec)
+
+exit;
+
+Bye

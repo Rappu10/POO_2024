@@ -1,101 +1,116 @@
-class Mascota:
-    def __init__(self, nombre, tipo, peso):
-        self.nombre = nombre
-        self.tipo = tipo
-        self.peso = peso
+from datetime import datetime
+from conexionBD import *
+from login import * 
+import tkinter as tk
+from tkinter import ttk
+from tkinter import simpledialog
 
-class Procedimiento:
-    TARIFA_BASE = 50
-    precios_accesorios = {
-        1: 95,
-        2: 150,
-        3: 55,
-        4: 230,
-        5: 150
-    }
+class VeterinariaApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Sistema de Gestión de la Veterinaria")
 
-    @staticmethod
-    def obtener_costo(procedimiento, opcion=None, cantidad_accesorios=1):
+        # Variables
+        self.nombre_mascota = tk.StringVar()
+        self.tipo_mascota = tk.StringVar()
+        self.peso_mascota = tk.DoubleVar()
+        self.procedimiento = tk.IntVar()
+        self.opcion_procedimiento = tk.IntVar()
+        self.cantidad_accesorios = tk.IntVar(value=1)
+
+        self.create_widgets()
+
+    def create_widgets(self):
+        # Título
+        title_label = tk.Label(self.root, text="Sistema de Gestión de la Veterinaria", font=("Arial", 18))
+        title_label.grid(row=0, column=0, columnspan=2, pady=10)
+
+        # Registro de mascota
+        tk.Label(self.root, text="Nombre de la Mascota:").grid(row=1, column=0, sticky=tk.W)
+        tk.Entry(self.root, textvariable=self.nombre_mascota).grid(row=1, column=1)
+
+        tk.Label(self.root, text="Tipo de Mascota:").grid(row=2, column=0, sticky=tk.W)
+        tk.Entry(self.root, textvariable=self.tipo_mascota).grid(row=2, column=1)
+
+        tk.Label(self.root, text="Peso de la Mascota (kg):").grid(row=3, column=0, sticky=tk.W)
+        tk.Entry(self.root, textvariable=self.peso_mascota).grid(row=3, column=1)
+
+        # Procedimientos
+        tk.Label(self.root, text="Seleccione un Procedimiento:").grid(row=4, column=0, sticky=tk.W)
+        procedimientos = ["Cirugías y/o procesos", "Vacunación", "Consulta", "Accesorios"]
+        self.procedimiento_menu = ttk.Combobox(self.root, textvariable=self.procedimiento, values=procedimientos)
+        self.procedimiento_menu.grid(row=4, column=1)
+        self.procedimiento_menu.bind("<<ComboboxSelected>>", self.actualizar_opciones)
+
+        # Opciones de procedimientos
+        self.opciones_label = tk.Label(self.root, text="Opciones del Procedimiento:")
+        self.opciones_label.grid(row=5, column=0, sticky=tk.W)
+
+        self.opciones_menu = ttk.Combobox(self.root, textvariable=self.opcion_procedimiento)
+        self.opciones_menu.grid(row=5, column=1)
+
+        self.cantidad_label = tk.Label(self.root, text="Cantidad:")
+        self.cantidad_label.grid(row=6, column=0, sticky=tk.W)
+
+        self.cantidad_spinbox = tk.Spinbox(self.root, from_=1, to=10, textvariable=self.cantidad_accesorios)
+        self.cantidad_spinbox.grid(row=6, column=1)
+
+        # Botones
+        tk.Button(self.root, text="Registrar Mascota", command=self.registrar_mascota).grid(row=7, column=0, pady=10)
+        tk.Button(self.root, text="Agendar Cita", command=self.agendar_cita).grid(row=7, column=1, pady=10)
+
+    def actualizar_opciones(self, event):
+        procedimiento = self.procedimiento_menu.current() + 1
         if procedimiento == 1:
-            tarifas = [0, 500, 300, 650, 1200, 800, 1500]
-            if opcion is not None and 1 <= opcion <= 6:
-                return Procedimiento.TARIFA_BASE * (tarifas[opcion] / Procedimiento.TARIFA_BASE)
-        elif procedimiento == 2:
-            return Procedimiento.TARIFA_BASE * 1.5
-        elif procedimiento == 3:
-            return Procedimiento.TARIFA_BASE
+            opciones = ["Esterilización", "Baño para eliminar bichos", "Eutanasia", "Parto", "Tratamiento de huesos rotos", "Prótesis"]
         elif procedimiento == 4:
-            if opcion is not None and 1 <= opcion <= 5:
-                return Procedimiento.precios_accesorios[opcion] * cantidad_accesorios
-        return 0
+            opciones = ["Correa", "Chaleco/ropa", "Collar", "Perfumes", "Arenas"]
+        else:
+            opciones = []
+        self.opciones_menu["values"] = opciones
+        self.opciones_menu.set("")
 
-class Veterinaria:
-    def __init__(self):
-        self.acumulador_ingresos = 0
-        self.contador_mascotas = 0
-        self.acumulador_nombres = ""
+        if procedimiento == 4:
+            self.cantidad_label.grid(row=6, column=0, sticky=tk.W)
+            self.cantidad_spinbox.grid(row=6, column=1)
+        else:
+            self.cantidad_label.grid_remove()
+            self.cantidad_spinbox.grid_remove()
 
-    def registrar_mascota(self, mascota, procedimiento, opcion=None, cantidad_accesorios=1):
-        costo = Procedimiento.obtener_costo(procedimiento, opcion, cantidad_accesorios)
-        self.acumulador_ingresos += costo
-        self.contador_mascotas += 1
-        self.acumulador_nombres += mascota.nombre + " "
-        print(f"El costo final del procedimiento para {mascota.nombre} es de ${costo}")
+    def registrar_mascota(self):
+        nombre = self.nombre_mascota.get()
+        tipo = self.tipo_mascota.get()
+        peso = self.peso_mascota.get()
+        procedimiento = self.procedimiento_menu.current() + 1
+        opcion = self.opciones_menu.current() + 1 if self.opciones_menu.get() else None
+        cantidad = self.cantidad_accesorios.get()
 
-    def mostrar_resultados(self):
-        print("      Resultados")
-        print("Total de mascotas registradas: ", self.contador_mascotas)
-        print("Ingresos totales: $ ", self.acumulador_ingresos)
-        print("Nombres de las mascotas ingresadas: ", self.acumulador_nombres.strip())
+        print(f"Mascota registrada: {nombre}, {tipo}, {peso}kg, Procedimiento: {procedimiento}, Opción: {opcion}, Cantidad: {cantidad}")
+        self.limpiar_campos()
+
+    def agendar_cita(self):
+        nombre = self.nombre_mascota.get()
+        fecha = simpledialog.askstring("Fecha de la cita", "Ingrese la fecha de la cita (YYYY-MM-DD):")
+        hora = simpledialog.askstring("Hora de la cita", "Ingrese la hora de la cita (HH:MM:SS):")
+
+        if fecha and hora:
+            print(f"Cita agendada para {nombre} el {fecha} a las {hora}")
+            self.limpiar_campos()
+        else:
+            print("Cita no agendada, falta información.")
+
+    def limpiar_campos(self):
+        self.nombre_mascota.set("")
+        self.tipo_mascota.set("")
+        self.peso_mascota.set(0)
+        self.procedimiento.set(0)
+        self.opcion_procedimiento.set(0)
+        self.cantidad_accesorios.set(1)
+        self.procedimiento_menu.set("")
+        self.opciones_menu.set("")
 
 # Código principal
-veterinaria = Veterinaria()
-
-print("                   .::SISTEMA DE GESTION DE LA VETERINARIA LAS RANAS::.")
-print("                Bienvenido al sistema de registro de la veterinaria Las ranas ")
-
-seguir_ingresando = "SI"
-
-while seguir_ingresando.lower() == "si":
-    print("                                   Datos de la mascota")
-    nombre_mascota = input("Ingrese el nombre de la mascota: ")
-    tipo_mascota = input("Ingrese el tipo de mascota: ")
-    peso_mascota = float(input("Ingrese el peso de la mascota en kg: "))
-
-    mascota = Mascota(nombre_mascota, tipo_mascota, peso_mascota)
-
-    print("      Procedimientos disponibles")
-    print("Ingrese el procedimiento a realizar:  ")
-    print("   1. cirugias y/o procesos")
-    print("   2. vacunacion")
-    print("   3. consulta")
-    print("   4. accesorios")
-    procedimiento = int(input("Elija una opción (1-4): "))
-
-    opcion = None
-    cantidad_accesorios = 1
-
-    if procedimiento == 1:
-        print("Cirugias y/o procesos disponibles:  ")
-        print("   1. Esterilizacion")
-        print("   2. Baño para eliminar bichos")
-        print("   3. Eutanasia")
-        print("   4. Parto")
-        print("   5. Tratamiento de huesos rotos")
-        print("   6. Protesis")
-        opcion = int(input("Elija una opción (1-6): "))
-        
-    elif procedimiento == 4:
-        print("Accesorios disponibles:  ")
-        print("   1. Correa")
-        print("   2. Chaleco/ropa")
-        print("   3. Collar")
-        print("   4. Perfumes")
-        print("   5. Arenas")
-        opcion = int(input("Elija una opción (1-5): "))
-        cantidad_accesorios = int(input("¿Cuántos productos desea comprar? "))
-
-    veterinaria.registrar_mascota(mascota, procedimiento, opcion, cantidad_accesorios)
-    seguir_ingresando = input("¿Deseas agregar otra mascota? (SI/NO): ")
-
-veterinaria.mostrar_resultados()
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = VeterinariaApp(root)
+    root.mainloop()
